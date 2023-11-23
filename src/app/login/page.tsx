@@ -30,6 +30,7 @@ export default function LoginPage() {
     }
   };
 
+
   useEffect(()=>{
     if(user.email.length>0 && user.password.length>0)
      {
@@ -40,53 +41,54 @@ export default function LoginPage() {
 },[user]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <div><Toaster/></div>
-      <h1 className="text-5xl">{loading?"Logging In...":"Login"}</h1>
-      <hr />
-        <div className="flex w-150 h-20 items-center" >
-          <label className="px-5" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="block w-full text-sm text-slate-500
-          file:mr-4 file:py-2 file:px-4
-          file:rounded-full file:border-0
-          file:text-sm file:font-semibold
-          file:bg-violet-50 file:text-violet-700
-          hover:file:bg-violet-100"
-            id="email"
-            type="text"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-            placeholder="Enter email"
-          />
+    <section className="bg-gray-50 dark:bg-gray-900">
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+                <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo"/>
+                Account Creater    
+                </a>
+            <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Sign in to your account
+                    </h1>
+                    <div><Toaster/></div>
+                        <div>
+                            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="email"
+                            type="text"
+                            value={user.email}
+                            onChange={(e) => setUser({ ...user, email: e.target.value })}
+                            placeholder="Enter email"/>
+                        </div>
+                        <div>
+                            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            id="password"
+                            type="password"
+                            value={user.password}
+                            onChange={(e) => setUser({ ...user, password: e.target.value })}
+                            placeholder="••••••••"
+                            />
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-start">
+                                <div className="flex items-center h-5">
+                                    <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required=""/>
+                                </div>
+                                <div className="ml-3 text-sm">
+                                    <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
+                                </div>
+                            </div>
+                            <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+                        </div>
+                        <button onClick={onLogin} className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in </button>
+                        <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                            Don’t have an account yet? <Link href="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>                        
+                        </p>                     
+                </div>
+            </div>
         </div>
-
-        <div className="flex w-150 h-20 items-center" >
-
-          <label className="px-5" htmlFor="password">
-            Password
-          </label>
-          <input
-            className="block w-full text-sm text-slate-500
-          file:mr-4 file:py-2 file:px-4
-          file:rounded-full file:border-0
-          file:text-sm file:font-semibold
-          file:bg-violet-50 file:text-violet-700
-          hover:file:bg-violet-100"
-            id="password"
-            type="password"
-            value={user.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-            placeholder="Enter password"
-          />
-        </div>
-        <button
-          onClick={onLogin}
-          className="p-2 border borger-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
-        >Login here</button>
-        <Link href="/signup">Visit Signup Page</Link>
-    </div>
+    </section>
   );
 }

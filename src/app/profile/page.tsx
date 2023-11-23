@@ -1,7 +1,7 @@
 "use client"
 import axios from "axios"
 import Link from "next/link"
-import toast from "react-hot-toast"
+import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation"
 import react ,{ useState } from "react"
 
@@ -29,6 +29,7 @@ export default function ProfilePage() {
     return(
         <div className="flex flex-col items-center justify-center min-h-screen py-2">
             <h1>Profile</h1>
+            <div><Toaster/></div>
             <hr/>
             <p>Profile Page</p>
             <h2>{data === 'nothing' ? "Nothing" : <Link href={`/profile/${data}`}>{data}</Link>}</h2>
