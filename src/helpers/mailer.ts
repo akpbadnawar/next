@@ -4,20 +4,21 @@ import bcryptjs from 'bcryptjs'
 
 export const sendEmail  = async({email, emailType, userId}: any) =>{
     try {
-
         //create a hased token
-
        const hashedToken = await bcryptjs.hash(userId.toString(), 10)
+       const otp = Math.floor((Math.random()*1000000)+1)
 
        if (emailType === 'VERIFY') {
         await User.findByIdAndUpdate(userId,{
         verifyToken: hashedToken, verifyTokenExpiry: Date.now()+ 3600000})
+        console.log('verify block')
        } else if (emailType === "RESET") {
-            await User.findByIdAndUpdate(userId,{
-            forgotPasswordToken: hashedToken, forgotPasswordTokenExpiry: Date.now()+ 3600000})
+           let test =  await User.findByIdAndUpdate(userId,{
+            forgotPasswordToken: otp, forgotPasswordTokenExpiry: Date.now()+ 3600000})
+            console.log(test)
        }
        
-       var transport = nodemailer.createTransport({
+       const transport = nodemailer.createTransport({
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
         auth: {
@@ -30,15 +31,15 @@ export const sendEmail  = async({email, emailType, userId}: any) =>{
         from:'test@gmail.com',
         to: email,
         subject: emailType === "VERIFY" ? "Verify your email": 'Reset your password',
-        html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${emailType === 'VERIFY'?"verify your email": "reset you password"}
+        html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${emailType === 'VERIFY'?"verify your email": "reset you password" + otp}
         or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken} 
         </p>`
       }
 
       const mailResponse = await transport.sendMail(mailOptions);
-      return mailOptions;
+      return mailResponse;
 
     } catch (error:any) {
-        throw new Error(error.message)
+        throw new Error(error.message + "mailer")
     }
 }
