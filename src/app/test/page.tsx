@@ -14,6 +14,7 @@ export default function ForgetPassword () {
       });
 
     const [loading,setLoading] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
 
     
     const onReset = async ()  =>{
@@ -22,7 +23,7 @@ export default function ForgetPassword () {
             const response = await axios.post("api/users/reset",user);
             toast.success("Mail sent success");
             console.log("Reset Mail sent", response.data);
-            router.push('/test');
+            router.push('/login');
           } catch(error:any){
               console.log("Mail not Sent", error.message);
               toast.error(error.message);
@@ -31,8 +32,18 @@ export default function ForgetPassword () {
           }
     }
 
+    useEffect(()=>{
+        if(user.email.length>0)
+         {
+            setButtonDisabled(false);
+          }else{
+            setButtonDisabled(true);
+          }
+    },[user]);
+
     return(
         <section className="bg-gray-50 dark:bg-gray-900">
+        <div><Toaster/></div>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
               <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo"/>
@@ -51,9 +62,12 @@ export default function ForgetPassword () {
                   </div>
                   
                  
-                  <button onClick={onReset} className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
-              </form>
-          </div>
+                  <button onClick={onReset} disabled={buttonDisabled}className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
+
+                  <p >Have account?</p>
+                  <div className="flex justify-end"><Link href="/login"  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login Page</Link></div>
+              </form>    
+          </div>   
       </div>
     </section>
     )    

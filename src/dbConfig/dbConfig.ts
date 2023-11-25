@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export async function connect () {
-    console.log("hello check")
+
     try {
         mongoose.connect(process.env.MONGO_URI!) //HERE ! means we are defining this data will alway resovle.
         const connection = mongoose.connection;
