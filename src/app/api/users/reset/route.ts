@@ -20,9 +20,7 @@ export async function POST(request:NextRequest) {
                 message: "Reset OTP sent successfull",
                 success: true,
             })
-            response.cookies.set('OTP', email,{
-                httpOnly: true,
-            })
+            
             return response;
         } else{
             return NextResponse.json({error: "User does not exist"}, {status:400})
