@@ -81,7 +81,7 @@ export default function LoginPage() {
                                     <label htmlFor="remember" className="text-gray-500 dark:text-gray-300">Remember me</label>
                                 </div>
                             </div>
-                            <Link href="/test" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"> Forgot password?</Link>
+                            <Link href="/forgotPass" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"> Forgot password?</Link>
                         </div>
                         <button onClick={onLogin} 
                         disabled={buttonDisabled}
