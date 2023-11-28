@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import  axios  from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import '../forgotPass/style.css'
+import { addEmail } from "../GlobalRedux/slice";
+import {useDispatch} from 'react-redux';
 
 
 export default function ForgetPassword () {
@@ -15,21 +17,34 @@ export default function ForgetPassword () {
 
     const [loading,setLoading] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
+    const dispatch = useDispatch();
 
     
     const onReset = async ()  =>{
         try{
             setLoading(true);
-            const response = await axios.post("api/users/reset",user);
-            toast.success("Mail sent success");
+            
+            // const response = await axios.post("api/users/reset",user);
             console.log("Reset Mail sent", response.data);
-            router.push('/otp');
+            router.push('/otp');    
+            toast.success("Mail sent success");  
           } catch(error:any){
               console.log("Mail not Sent", error.message);
               toast.error(error.message);
           } finally{
             setLoading(false)
           }
+    }
+
+    const onDispatch = async() =>{
+        try {
+            dispatch(addEmail(user.email))
+            console.log(user.email)
+        } catch (error:any) {
+            
+            console.log('Error in setting email', error.message);
+            toast.error(error.message)
+        }
     }
 
     useEffect(()=>{
@@ -42,7 +57,7 @@ export default function ForgetPassword () {
    },[user]);
         
 
-    return(
+return(
         <section className="bg-gray-50 dark:bg-gray-900">
         <div><Toaster/></div>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -62,7 +77,7 @@ export default function ForgetPassword () {
                       />
                   </div>              
                                   
-                  <button onClick={onReset} disabled={buttonDisabled}className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
+                  <button onClick={()=>{onReset();onDispatch()}} disabled={buttonDisabled}className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
 
                   <p >Have account?</p>
                   <div className="flex justify-end"><Link href="/login"  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login Page</Link></div>
