@@ -1,9 +1,12 @@
 "use client"
+type InitialState = {
+    email:string
+}
 
 import {createSlice, nanoid} from '@reduxjs/toolkit';
 
-const initialState = {
-    email: []
+const initialState : InitialState = {
+    email: ""
 }
 
 const Slice = createSlice({
@@ -11,11 +14,7 @@ const Slice = createSlice({
     initialState,
     reducers:{
         addEmail:(state,action)=>{
-            const data={
-                id:nanoid(),
-                email:action.payload
-            }
-            state.email.push(data);
+            state.email = action.payload
         }
     }
 })
