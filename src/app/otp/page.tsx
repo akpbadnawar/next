@@ -4,10 +4,14 @@ import React,{useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import  axios  from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import './style.css'
 
 
 export default function ForgetPassword () { 
-
+    const router = useRouter()
+    const userEmail = useSelector((data)=>data.email)
+    console.log(userEmail[0].email)
         return(
             <section className="bg-gray-50 dark:bg-gray-900">
             <div><Toaster/></div>
@@ -23,14 +27,21 @@ export default function ForgetPassword () {
                   <form className="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
                       <div>
                           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                          <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com"
+                          <input disabled type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder={userEmail[userEmail.length-1].email}
                           />
-                      </div>              
+                      </div>
+                      <div>
+                          <label htmlFor="otp" className=".remove-arrow block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter OTP</label>
+                          <input type="number" name="otp" id="otp" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder=""
+                          />
+                      </div>               
                                       
                       <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
+
+                      <Link href={'/forgotPass'} className="flex text-center w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4	focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Change email</Link>
     
                       <p >Have account?</p>
-                      <div className="flex justify-end"><Link href="/login"  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login Page</Link></div>
+                      <div className="flex justify-end"><Link href="/login"  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm  py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login Page</Link></div>
                   </form>    
               </div>   
           </div>

@@ -13,9 +13,8 @@ export const sendEmail  = async({email, emailType, userId}: any) =>{
         verifyToken: hashedToken, verifyTokenExpiry: Date.now()+ 3600000})
         console.log('verify block')
        } else if (emailType === "RESET") {
-           let test =  await User.findByIdAndUpdate(userId,{
-            forgotPasswordToken: otp, forgotPasswordTokenExpiry: Date.now()+ 3600000})
-            console.log(test)
+        await User.findByIdAndUpdate(userId,{
+        forgotPasswordToken: otp, forgotPasswordTokenExpiry: Date.now()+ 360})
        }
        
        const transport = nodemailer.createTransport({

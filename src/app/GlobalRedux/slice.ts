@@ -2,16 +2,15 @@
 
 import {createSlice, nanoid} from '@reduxjs/toolkit';
 
-const startingState = {
+const initialState = {
     email: []
 }
 
 const Slice = createSlice({
     name:'addEmailSlice',
-    initialState:startingState,
+    initialState,
     reducers:{
         addEmail:(state,action)=>{
-            console.log(action)
             const data={
                 id:nanoid(),
                 email:action.payload

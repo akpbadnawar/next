@@ -11,9 +11,7 @@ import {useDispatch} from 'react-redux';
 
 export default function ForgetPassword () {
     const router = useRouter()
-    const [user, setUser] = useState({
-        email: "",
-      });
+    const [email1, setEmail] = useState("");
 
     const [loading,setLoading] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -21,40 +19,39 @@ export default function ForgetPassword () {
 
     
     const onReset = async ()  =>{
+       
         try{
-            setLoading(true);
-            
-            // const response = await axios.post("api/users/reset",user);
-            console.log("Reset Mail sent", response.data);
-            router.push('/otp');    
-            toast.success("Mail sent success");  
+            setLoading(true)
+            // const response = await axios.post("api/users/reset",user); 
+            console.log("Reset Mail sent", response.data);  
+            router.push('/otp')
+            toast.success("Mail sent success");
           } catch(error:any){
               console.log("Mail not Sent", error.message);
               toast.error(error.message);
           } finally{
             setLoading(false)
+            router.push('/otp')
           }
     }
 
     const onDispatch = async() =>{
         try {
-            dispatch(addEmail(user.email))
-            console.log(user.email)
-        } catch (error:any) {
-            
+            dispatch(addEmail(email1))
+        } catch (error:any) {           
             console.log('Error in setting email', error.message);
             toast.error(error.message)
         }
     }
 
     useEffect(()=>{
-        if(user.email.length>0)
+        if(email1.length>0)
         {
            setButtonDisabled(false);
          } else{
            setButtonDisabled(true);
          }
-   },[user]);
+   },[email1]);
         
 
 return(
@@ -71,13 +68,13 @@ return(
               </h2>
               <form className="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
                   <div>
-                      <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                      <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com"
-                      onChange={(e) => setUser({ ...user, email: e.target.value})}
-                      />
+                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                            <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" id="email"
+                            type="text"
+                            onChange={(e) => setEmail(e.target.value)}></input>
                   </div>              
                                   
-                  <button onClick={()=>{onReset();onDispatch()}} disabled={buttonDisabled}className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
+                  <button type="button" onClick={()=>{onReset();onDispatch()}} disabled={buttonDisabled} className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Reset passwod</button>
 
                   <p >Have account?</p>
                   <div className="flex justify-end"><Link href="/login"  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login Page</Link></div>
