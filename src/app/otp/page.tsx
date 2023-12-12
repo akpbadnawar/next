@@ -15,13 +15,19 @@ export default function ForgetPassword() {
   // Function to handle input changes and move to the next component
   const handleOtpChange = (index: number, value: string) => {
     const newOtp = [...otp];
+  
+    // If backspace is pressed and the input is empty, move to the previous input field
+    if (value === '' && index > 0) {
+      document.getElementById(`otp-input-${index - 1}`)?.focus();
+    }
+  
     newOtp[index] = value;
-
+  
     // Move to the next input field if the current input is filled
     if (value && index < newOtp.length - 1) {
       document.getElementById(`otp-input-${index + 1}`)?.focus();
     }
-
+  
     setOtp(newOtp);
   };
 
