@@ -40,7 +40,7 @@ export default function ForgetPassword() {
         console.log("Login Success", response.data);
         //  
         toast.success("OTP Verified");
-        router.push('/test')
+        router.push('/passwordReset')
       } else {
         // Show an error message if the OTP length is not 6
         toast.error("Please enter a valid 6-digit OTP");
