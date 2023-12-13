@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       const hashedPassword = await bcryptjs.hash(password, salt);
 
       await User.findByIdAndUpdate(userId,{
-        password: hashedPassword})
+        password: hashedPassword, forgotPasswordToken: ""})
 
         return NextResponse.json({
           message: "Password changed successfull",
