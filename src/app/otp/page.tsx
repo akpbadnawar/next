@@ -10,20 +10,18 @@ import './style.css';
 export default function ForgetPassword() {
   const router = useRouter();
   const userEmail = useSelector((data: any) => data.email);
-  const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']); // Maintain state for OTP
-
-  // Function to handle input changes and move to the next component
+  const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']); 
   const handleOtpChange = (index: number, value: string) => {
     const newOtp = [...otp];
   
-    // If backspace is pressed and the input is empty, move to the previous input field
+    
     if (value === '' && index > 0) {
       document.getElementById(`otp-input-${index - 1}`)?.focus();
+  
     }
-  
     newOtp[index] = value;
+    
   
-    // Move to the next input field if the current input is filled
     if (value && index < newOtp.length - 1) {
       document.getElementById(`otp-input-${index + 1}`)?.focus();
     }
@@ -31,7 +29,6 @@ export default function ForgetPassword() {
     setOtp(newOtp);
   };
 
-  // Function to get OTP (Replace the API endpoint and logic accordingly)
   const handleResetPassword = async () => {
     try {
       const otpValue = otp.join('');
@@ -43,7 +40,7 @@ export default function ForgetPassword() {
         console.log("Login Success", response.data);
         //  
         toast.success("OTP Verified");
-        toast.success(response.data.message);
+        router.push('/test')
       } else {
         // Show an error message if the OTP length is not 6
         toast.error("Please enter a valid 6-digit OTP");
@@ -63,7 +60,6 @@ export default function ForgetPassword() {
       </div>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
-          href="#"
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
         >
           <img
@@ -112,7 +108,7 @@ export default function ForgetPassword() {
               disabled={isResetDisabled}
               className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
-              Reset password
+             Validate Sent OTP
             </button>
 
             <Link

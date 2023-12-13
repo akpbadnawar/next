@@ -12,6 +12,7 @@ export default function SignupPage() {
     email: "",
     password: "",
     username: "",
+    requestType: "createAcc"
 })
 const [buttonDisabled, setbuttonDisabled] = useState(false);
 const [loading, setLoading] = useState(false);
